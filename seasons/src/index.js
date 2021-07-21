@@ -13,24 +13,13 @@ import ReactDOM from 'react-dom';
 // determine users physical location
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = { lat: null, errorMessage: '' };
-
-        window.navigator.geolocation.getCurrentPosition(
-            position => { 
-                //call set state
-                this.setState({ lat: position.coords.latitude });
-            },
-            err => {
-                this.setState({ errorMessage: err.message });
-            }
-        );
-      }
-
+    state = { lat: null, errorMessage: '' };
+    
       componentDidMount() {
-        console.log('My component was rendered to the screen.');
+        window.navigator.geolocation.getCurrentPosition(
+            position => this.setState({ lat: position.coords.latitude }),
+            err => this.setState({ errorMessage: err.message })
+        );
       }
 
       componentDidUpdate() {
